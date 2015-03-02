@@ -1,0 +1,17 @@
+{
+  "name": "react-studio-uploader",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/cjsx -o ./dist/ -cb ./src/index.cjsx"
+  },
+  "author": "Shervin Aflatooni",
+  "devDependencies": {
+    "coffee-react": "^2.4.1"
+  },
+  "dependencies": {
+    "flux": "^2.0.1",
+    "react": "^0.12.2",
+    "superagent": "^0.21.0"
+  }
+}
