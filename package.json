@@ -17,6 +17,6 @@
   },
   "dependencies": {
     "react": "^0.12.2",
-    "superagent": "^0.21.0"
+    "studio-asset-service-client-js": "file:../studio-asset-service-client-js"
   }
 }
