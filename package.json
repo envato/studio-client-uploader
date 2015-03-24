@@ -15,8 +15,14 @@
     "http-server": "^0.8.0",
     "webpack": "^1.7.3"
   },
+  "peerDependencies": {
+    "flux": "^2.0.1",
+    "node-uuid": "^1.4.3",
+    "object-assign": "^2.0.0",
+    "react": "^0.12.2"
+  },
   "dependencies": {
-    "react": "^0.12.2",
+    "eventemitter3": "^0.1.6",
     "studio-asset-service-client-js": "file:../studio-asset-service-client-js"
   }
 }

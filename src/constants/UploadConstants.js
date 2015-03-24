@@ -1,0 +1,4 @@
+export default {
+  ADD_UPLOAD: 'ADD_UPLOAD',
+  UPDATE_UPLOAD: 'UPDATE_UPLOAD'
+};

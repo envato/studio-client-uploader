@@ -10,7 +10,11 @@ module.exports = {
     filename: 'index.js'
   },
   externals: {
-    "react": true
+    "react": true,
+    "object-assign": true,
+    "flux": true,
+    "eventemitter3": true,
+    "node-uuid": true
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
