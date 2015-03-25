@@ -45,8 +45,10 @@ var Uploader = React.createClass({
     file.id = uuid.v4();
     UploadActionCreators.addUpload(file);
 
+    var self = this;
+
     file.acceptDimensions = function () {
-      this.assetServiceClient.newAsset(function (err, data) {
+      self.assetServiceClient.newAsset(function (err, data) {
         file.signature = data.transloadit.signature;
         file.params = data.transloadit.params;
         file.assetId = data.asset.id;
