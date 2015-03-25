@@ -1,12 +1,11 @@
 {
   "name": "react-studio-uploader",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "lib",
   "repository": {
     "type": "git",
     "url": "git://github.com/envato/react-studio-uploader.git"
   },
-  "private": true,
   "author": "Shervin Aflatooni",
   "peerDependencies": {
     "react": "^0.12.2"

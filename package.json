@@ -13,7 +13,6 @@
     "type": "git",
     "url": "git://github.com/envato/react-studio-uploader.git"
   },
-  "private": true,
   "author": "Shervin Aflatooni",
   "devDependencies": {
     "babel": "^4.7.16",
