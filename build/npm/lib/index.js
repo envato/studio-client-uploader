@@ -62,6 +62,8 @@ var Uploader = React.createClass({
     this.assetServiceClient = new StudioAssetService(this.props.assetServiceUrl);
     UploadStore.addListener("change", this._onChange);
 
+    var self = this;
+
     this.dropzone = new Dropzone(this.refs.uploader.getDOMNode(), {
       url: this.props.uploadUrl,
       accept: this._accept,
@@ -76,7 +78,7 @@ var Uploader = React.createClass({
     });
 
     this.dropzone.on("thumbnail", function (file, dataUrl) {
-      if (this._valid(file)) {
+      if (self._valid(file)) {
         file.acceptDimensions();
       } else {
         file.rejectDimensions();
@@ -91,7 +93,7 @@ var Uploader = React.createClass({
 
     this.dropzone.on("success", function (file) {
       UploadActionCreators.updateUpload(file.id, { progress: 100 });
-      this.props.onUpload(file.assetId);
+      self.props.onUpload(file.assetId);
     });
   },
   componentWillUnmount: function componentWillUnmount() {
