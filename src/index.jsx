@@ -6,8 +6,6 @@ import UploadStore from './stores/UploadStore';
 import AssetPreview from './components/AssetPreview';
 import uuid from 'node-uuid';
 
-var assetServiceClient = new StudioAssetService('http://studio-asset-api.lancerdev.com');
-
 var getUploaderState = function() {
   return {
     uploads: UploadStore.getAll(),
@@ -49,39 +47,40 @@ var Uploader = React.createClass({
     };
   },
   componentDidMount: function() {
+    this.assetServiceClient = new StudioAssetService(this.props.assetServiceUrl);
     UploadStore.addListener('change', this._onChange);
 
     this.dropzone = new Dropzone(this.refs.uploader.getDOMNode(), {
-      url: "https://api2.transloadit.com/assemblies",
+      url: this.props.uploadUrl,
       accept: this._accept,
       previewsContainer: false,
       maxFiles: this.props.maxFiles,
-      acceptedFiles: "image/*"
+      acceptedFiles: this.props.acceptedFiles
     });
 
-    // this.dropzone.on('sending', function(file, xhr, formData) {
-    //   formData.append('signature', file.signature);
-    //   formData.append('params', file.params);
-    // });
-    //
-    // this.dropzone.on('thumbnail', function(file, dataUrl) {
-    //   if (this._valid(file)) {
-    //     file.acceptDimensions();
-    //   } else {
-    //     file.rejectDimensions();
-    //   }
-    //
-    //   UploadActionCreators.updateUpload(file.id, { thumbnail: dataUrl });
-    // });
-    //
-    // this.dropzone.on('uploadprogress', function(file, progress) {
-    //   UploadActionCreators.updateUpload(file.id, { progress: Math.min(progress,99) });
-    // });
-    //
-    // this.dropzone.on('success', function(file) {
-    //   UploadActionCreators.updateUpload(file.id, { progress: 100 });
-    //   this.props.onUpload(file.assetId);
-    // });
+    this.dropzone.on('sending', function(file, xhr, formData) {
+      formData.append('signature', file.signature);
+      formData.append('params', file.params);
+    });
+
+    this.dropzone.on('thumbnail', function(file, dataUrl) {
+      if (this._valid(file)) {
+        file.acceptDimensions();
+      } else {
+        file.rejectDimensions();
+      }
+
+      UploadActionCreators.updateUpload(file.id, { thumbnail: dataUrl });
+    });
+
+    this.dropzone.on('uploadprogress', function(file, progress) {
+      UploadActionCreators.updateUpload(file.id, { progress: Math.min(progress,99) });
+    });
+
+    this.dropzone.on('success', function(file) {
+      UploadActionCreators.updateUpload(file.id, { progress: 100 });
+      this.props.onUpload(file.assetId);
+    });
   },
   componentWillUnmount: function() {
     UploadStore.removeListener('change', this._onChange);
