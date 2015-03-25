@@ -6,7 +6,8 @@
     "serve": "./node_modules/http-server/bin/http-server -g",
     "webpack": "./node_modules/.bin/webpack --progress --colors --watch",
     "start": "npm run serve | npm run webpack",
-    "build": "./node_modules/.bin/webpack"
+    "build": "./node_modules/.bin/webpack",
+    "build-npm": "rm -rf build/npm && ./node_modules/.bin/babel -d build/npm/lib ./src && cp README.md build/npm && node -p 'p=require(\"./package\");p.main=\"lib\";p.scripts=p.devDependencies=undefined;JSON.stringify(p,null,2)' > build/npm/package.json"
   },
   "repository": {
     "type": "git",
@@ -15,6 +16,7 @@
   "private": true,
   "author": "Shervin Aflatooni",
   "devDependencies": {
+    "babel": "^4.7.16",
     "babel-core": "^4.7.16",
     "babel-loader": "^4.2.0",
     "http-server": "^0.8.0",

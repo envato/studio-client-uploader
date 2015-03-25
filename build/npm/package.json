@@ -1,0 +1,21 @@
+{
+  "name": "react-studio-uploader",
+  "version": "1.0.0",
+  "main": "lib",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/envato/react-studio-uploader.git"
+  },
+  "private": true,
+  "author": "Shervin Aflatooni",
+  "peerDependencies": {
+    "react": "^0.12.2"
+  },
+  "dependencies": {
+    "flux": "^2.0.1",
+    "node-uuid": "^1.4.3",
+    "object-assign": "^2.0.0",
+    "eventemitter3": "^0.1.6",
+    "studio-asset-service-client-js": "git+ssh://git@github.com:envato/studio-asset-service-client-js.git"
+  }
+}
