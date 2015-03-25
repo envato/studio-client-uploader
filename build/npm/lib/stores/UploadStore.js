@@ -36,6 +36,9 @@ var UploadStore = assign({}, EventEmitter.prototype, {
 
     return output;
   },
+  clear: function clear() {
+    _uploads = {};
+  },
   emitChange: function emitChange() {
     this.emit(this.CHANGE_EVENT);
   }
