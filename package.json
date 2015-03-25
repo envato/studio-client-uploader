@@ -8,6 +8,11 @@
     "start": "npm run serve | npm run webpack",
     "build": "./node_modules/.bin/webpack"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/envato/react-studio-uploader.git"
+  },
+  "private": true,
   "author": "Shervin Aflatooni",
   "devDependencies": {
     "babel-core": "^4.7.16",
@@ -16,13 +21,13 @@
     "webpack": "^1.7.3"
   },
   "peerDependencies": {
-    "flux": "^2.0.1",
-    "node-uuid": "^1.4.3",
-    "object-assign": "^2.0.0",
     "react": "^0.12.2"
   },
   "dependencies": {
+    "flux": "^2.0.1",
+    "node-uuid": "^1.4.3",
+    "object-assign": "^2.0.0",
     "eventemitter3": "^0.1.6",
-    "studio-asset-service-client-js": "file:../studio-asset-service-client-js"
+    "studio-asset-service-client-js": "git+ssh://git@github.com:envato/studio-asset-service-client-js.git"
   }
 }
