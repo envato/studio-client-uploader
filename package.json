@@ -1,7 +1,7 @@
 {
   "name": "react-studio-uploader",
   "version": "1.0.0",
-  "main": "./public/index.js",
+  "main": "./src/index.jsx",
   "scripts": {
     "serve": "./node_modules/http-server/bin/http-server -g",
     "webpack": "./node_modules/.bin/webpack --progress --colors --watch",
