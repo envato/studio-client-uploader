@@ -30,5 +30,14 @@
     "node-uuid": "^1.4.3",
     "object-assign": "^2.0.0",
     "studio-asset-service-client-js": "^1.0.0"
-  }
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "uploader",
+    "envato",
+    "studio",
+    "asset",
+    "service"
+  ]
 }
