@@ -25,10 +25,10 @@
     "react": "^0.12.2"
   },
   "dependencies": {
+    "eventemitter3": "^0.1.6",
     "flux": "^2.0.1",
     "node-uuid": "^1.4.3",
     "object-assign": "^2.0.0",
-    "eventemitter3": "^0.1.6",
-    "studio-asset-service-client-js": "git+ssh://git@github.com:envato/studio-asset-service-client-js.git"
+    "studio-asset-service-client-js": "^1.0.0"
   }
 }
