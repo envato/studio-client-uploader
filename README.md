@@ -2,14 +2,14 @@
 
 Usage:
 
-```
+```bash
 npm install --save react-studio-uploader
 ```
 
 Then:
 
-```
-Uploader = require('react-studio-uploader')
+```javascript
+var Uploader = require('react-studio-uploader');
 
 _onUpload: function(assetUuid) {
   console.log(assetUuid);
