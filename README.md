@@ -1,6 +1,6 @@
 # react-studio-uploader
 
-Usage:
+## Usage:
 
 ```bash
 npm install --save react-studio-uploader
@@ -24,4 +24,9 @@ render: function() {
     minWidth=500
     maxFiles=1 />);
 }
+```
+
+## Release:
+```bash
+./scripts/release
 ```
