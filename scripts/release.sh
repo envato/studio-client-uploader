@@ -7,12 +7,18 @@ update_version() {
 
 current_version=$(node -p "require('./package').version")
 
-printf "Next version (current is $current_version)? "
-read next_version
+if [ "$1" == "-a" ]
+then
+  next_version=$(node -p "version = '$current_version'.split('.'); version[version.length - 1] = parseInt(version[version.length - 1]) + 1; version.join('.')")
+  echo "Next version is $next_version (current is $current_version)"
+else
+  printf "Next version (current is $current_version)? "
+  read next_version
 
-if ! [[ $next_version =~ ^[0-9]\.[0-9]+\.[0-9](-.+)? ]]; then
-  echo "Version must be a valid semver string, e.g. 1.0.2 or 2.3.0-beta.1"
-  exit 1
+  if ! [[ $next_version =~ ^[0-9]\.[0-9]+\.[0-9](-.+)? ]]; then
+    echo "Version must be a valid semver string, e.g. 1.0.2 or 2.3.0-beta.1"
+    exit 1
+  fi
 fi
 
 next_ref="v$next_version"
