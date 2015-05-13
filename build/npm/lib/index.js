@@ -59,6 +59,10 @@ var Uploader = React.createClass({
     file.rejectDimensions = function () {
       done("Invalid dimension.");
     };
+
+    if (!file.type.match(/image.*/)) {
+      file.acceptDimensions();
+    }
   },
   componentDidMount: function componentDidMount() {
     this.assetServiceClient = new StudioAssetService(this.props.assetServiceUrl);
