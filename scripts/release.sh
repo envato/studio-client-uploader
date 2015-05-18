@@ -37,4 +37,5 @@ git push origin master
 git push origin $next_ref
 git push origin latest -f
 
+npm config set authToken $NPM_TOKEN
 npm publish build/npm
