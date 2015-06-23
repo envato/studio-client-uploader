@@ -6,15 +6,9 @@ import UploadStore from '../stores/UploadStore';
 import AssetPreview from '../components/AssetPreview';
 import uuid from 'node-uuid';
 
-var getUploaderState = function() {
-  return {
-    validUploads: UploadStore.getValidUploads()
-  };
-};
-
 var Uploader = React.createClass({
   getInitialState: function() {
-    return getUploaderState();
+    return { validUploads: UploadStore.getValidUploads(this.props.id) };
   },
   _valid: function(file) {
     if (this.props.minWidth != null) {
@@ -96,7 +90,7 @@ var Uploader = React.createClass({
     this.dropzone = null;
   },
   _onChange: function() {
-    this.setState(getUploaderState());
+    this.setState(this.getInitialState());
   },
   _disabled: function() {
     return Object.keys(this.state.validUploads).length >= this.props.maxFiles;
