@@ -27,12 +27,12 @@ var UploadStore = assign({}, EventEmitter.prototype, {
   getByUploaderId: function getByUploaderId(uploaderId) {
     return _uploads[uploaderId] || {};
   },
-  getValidUploads: function getValidUploads() {
+  getValidUploads: function getValidUploads(uploaderId) {
     var output = {};
-    var uploadIds = Object.keys(_uploads);
+    var uploadIds = Object.keys(_uploads[uploaderId] || {});
 
     for (var i = 0; i < uploadIds.length; i++) {
-      var upload = _uploads[uploadIds[i]];
+      var upload = _uploads[uploaderId][uploadIds[i]];
       if (upload.error == null && upload.file && upload.file.accepted == true) {
         output[uploadIds[i]] = upload;
       }

@@ -16,17 +16,11 @@ var AssetPreview = _interopRequire(require("../components/AssetPreview"));
 
 var uuid = _interopRequire(require("node-uuid"));
 
-var getUploaderState = function getUploaderState() {
-  return {
-    validUploads: UploadStore.getValidUploads()
-  };
-};
-
 var Uploader = React.createClass({
   displayName: "Uploader",
 
   getInitialState: function getInitialState() {
-    return getUploaderState();
+    return { validUploads: UploadStore.getValidUploads(this.props.id) };
   },
   _valid: function _valid(file) {
     if (this.props.minWidth != null) {
@@ -108,7 +102,7 @@ var Uploader = React.createClass({
     this.dropzone = null;
   },
   _onChange: function _onChange() {
-    this.setState(getUploaderState());
+    this.setState(this.getInitialState());
   },
   _disabled: function _disabled() {
     return Object.keys(this.state.validUploads).length >= this.props.maxFiles;
