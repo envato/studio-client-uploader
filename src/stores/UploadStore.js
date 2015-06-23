@@ -7,14 +7,18 @@ var _uploads = {};
 
 var UploadStore = assign({}, EventEmitter.prototype, {
   CHANGE_EVENT: 'change',
-  addUpload: function(file) {
-    _uploads[file.id] = { file: file };
+  addUpload: function(uploaderId, file) {
+    if (_uploads[uploaderId] == undefined) {
+      _uploads[uploaderId] = {};
+    }
+
+    _uploads[uploaderId][file.id] = { file: file };
   },
-  updateUpload: function(id, data) {
-    assign(_uploads[id], data);
+  updateUpload: function(uploaderId, id, data) {
+    assign(_uploads[uploaderId][id], data);
   },
-  getAll: function() {
-    return _uploads;
+  getByUploaderId: function(uploaderId) {
+    return _uploads[uploaderId] || {};
   },
   getValidUploads: function() {
     var output = {};
@@ -42,11 +46,11 @@ AppDispatcher.register(function(payload) {
 
   switch(action.actionType) {
     case UploadConstants.ADD_UPLOAD:
-      UploadStore.addUpload(action.file);
+      UploadStore.addUpload(action.uploaderId, action.file);
       UploadStore.emitChange();
       break;
     case UploadConstants.UPDATE_UPLOAD:
-      UploadStore.updateUpload(action.id, action.data);
+      UploadStore.updateUpload(action.uploaderId, action.id, action.data);
       UploadStore.emitChange();
       break;
 

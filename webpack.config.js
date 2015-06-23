@@ -3,18 +3,13 @@ var webpack = require('webpack');
 module.exports = {
   cache: true,
   context : __dirname,
-  entry: ['./src/index.jsx'],
+  entry: {
+    index: ["./src/index"],
+    example: ["./src/example"]
+  },
   output: {
     path: __dirname + '/public/',
-    libraryTarget: 'amd',
-    filename: 'index.js'
-  },
-  externals: {
-    "react": true,
-    "object-assign": true,
-    "flux": true,
-    "eventemitter3": true,
-    "node-uuid": true
+    filename: "[name].js",
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],

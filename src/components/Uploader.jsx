@@ -1,14 +1,13 @@
 import React from 'react';
-import Dropzone from './vendor/dropzone';
+import Dropzone from '../vendor/dropzone';
 import StudioAssetService from 'studio-asset-service-client-js';
-import UploadActionCreators from './actions/UploadViewActionCreators';
-import UploadStore from './stores/UploadStore';
-import AssetPreview from './components/AssetPreview';
+import UploadActionCreators from '../actions/UploadViewActionCreators';
+import UploadStore from '../stores/UploadStore';
+import AssetPreview from '../components/AssetPreview';
 import uuid from 'node-uuid';
 
 var getUploaderState = function() {
   return {
-    uploads: UploadStore.getAll(),
     validUploads: UploadStore.getValidUploads()
   };
 };
@@ -22,7 +21,7 @@ var Uploader = React.createClass({
       if (file.width >= this.props.minWidth) {
         return true;
       } else {
-        UploadActionCreators.updateUpload(file.id, { error: "Invalid Dimensions. Minimum width is " + this.props.minWidth });
+        UploadActionCreators.updateUpload(this.props.id, file.id, { error: "Invalid Dimensions. Minimum width is " + this.props.minWidth });
         return false;
       }
     } else {
@@ -31,7 +30,7 @@ var Uploader = React.createClass({
   },
   _accept: function(file, done) {
     file.id = uuid.v4();
-    UploadActionCreators.addUpload(file);
+    UploadActionCreators.addUpload(this.props.id, file);
 
     var self = this;
 
@@ -78,15 +77,15 @@ var Uploader = React.createClass({
         file.rejectDimensions();
       }
 
-      UploadActionCreators.updateUpload(file.id, { thumbnail: dataUrl });
+      UploadActionCreators.updateUpload(self.props.id, file.id, { thumbnail: dataUrl });
     });
 
     this.dropzone.on('uploadprogress', function(file, progress) {
-      UploadActionCreators.updateUpload(file.id, { progress: Math.min(progress,99) });
+      UploadActionCreators.updateUpload(self.props.id, file.id, { progress: Math.min(progress,99) });
     });
 
     this.dropzone.on('success', function(file) {
-      UploadActionCreators.updateUpload(file.id, { progress: 100 });
+      UploadActionCreators.updateUpload(self.props.id, file.id, { progress: 100 });
       self.props.onUpload(file.assetId);
     });
   },
@@ -102,21 +101,17 @@ var Uploader = React.createClass({
   _disabled: function() {
     return Object.keys(this.state.validUploads).length >= this.props.maxFiles;
   },
-   render: function() {
-     var assetPreviews = [];
-     var uploadIds = Object.keys(this.state.uploads);
-     for (var i = 0; i < uploadIds.length; i++) {
-       assetPreviews.push(<AssetPreview asset={this.state.uploads[uploadIds[i]]} key={uploadIds[i]} />);
-     }
-
-     if (!this._disabled()) {
-       var button = <div id="asset-upload-button" ref="uploader" className="button button--muted stand-alone-button dz-clickable">Upload a file</div>;
-     }
+  _onClick: function(e) {
+    React.findDOMNode(this.refs.uploader).click();
+  },
+  render: function() {
+    if (!this._disabled()) {
+     var button = <div ref="uploader" className="dz-clickable" onClick={this._onClick}>{this.props.children}</div>;
+    }
 
     return (
-      <div className="asset-uploader">
+      <div>
         {button}
-        {assetPreviews}
       </div>
     );
   }
