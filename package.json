@@ -1,6 +1,6 @@
 {
   "name": "react-studio-uploader",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "main": "src",
   "scripts": {
     "serve": "./node_modules/http-server/bin/http-server -g",
