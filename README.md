@@ -9,21 +9,29 @@ npm install --save react-studio-uploader
 Then:
 
 ```javascript
-var Uploader = require('react-studio-uploader');
+import React from 'react'
 
-_onUpload: function(assetUuid) {
-  console.log(assetUuid);
-},
-render: function() {
-  return (<Uploader
-    assetType="entry-asset"
-    acceptedFiles="image/*"
-    assetServiceUrl="http://ASSET_SERVICE_ENDPOINT.com"
-    uploadUrl="http://UPLOAD_ENDPOINT.com"
-    onUpload={this._onUpload}
-    minWidth=500
-    maxFiles=1 />);
-}
+import { Uploader, AssetPreview, UploaderPreview } from 'react-studio-uploader'
+
+var Application = React.createClass({
+  _onUpload: function(asset) {
+    console.log(asset);
+  },
+  render: function() {
+    return (
+      <div>
+        Uploader:
+        <Uploader id="test-uploader" assetType="message-asset" assetServiceUrl="http://STUDIO_ASSET_SERVICE.com" uploadUrl="https://UPLOAD_ENDPOINT.com" onUpload={this._onUpload}>
+          <div className="button button--muted">Upload a file</div>
+        </Uploader>
+        <UploaderPreview uploaderId="test-uploader" previewComponent={AssetPreview} />
+      </div>
+    )
+  }
+});
+
+React.render(<Application />, document.getElementById('app'));
+
 ```
 
 ## Release:
