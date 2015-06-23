@@ -7,17 +7,19 @@ var UploadConstants = _interopRequire(require("../constants/UploadConstants"));
 var AppDispatcher = _interopRequire(require("../dispatcher/AppDispatcher"));
 
 module.exports = {
-  addUpload: function (file) {
+  addUpload: function (uploaderId, file) {
     AppDispatcher.handleViewAction({
       actionType: UploadConstants.ADD_UPLOAD,
-      file: file
+      file: file,
+      uploaderId: uploaderId
     });
   },
-  updateUpload: function (id, data) {
+  updateUpload: function (uploaderId, id, data) {
     AppDispatcher.handleViewAction({
       actionType: UploadConstants.UPDATE_UPLOAD,
       data: data,
-      id: id
+      id: id,
+      uploaderId: uploaderId
     });
   }
 };

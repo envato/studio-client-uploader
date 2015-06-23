@@ -1,13 +1,13 @@
 {
   "name": "react-studio-uploader",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "main": "src",
   "scripts": {
     "serve": "./node_modules/http-server/bin/http-server -g",
     "webpack": "./node_modules/.bin/webpack --progress --colors --watch",
     "start": "npm run serve | npm run webpack",
     "build": "./node_modules/.bin/webpack",
-    "build-npm": "./scripts/build"
+    "build-npm": "./scripts/build.sh"
   },
   "repository": {
     "type": "git",
