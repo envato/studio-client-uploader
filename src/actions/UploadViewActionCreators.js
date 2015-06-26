@@ -9,6 +9,12 @@ export default {
       uploaderId: uploaderId
     });
   },
+  clearUploads: (uploaderId) => {
+    AppDispatcher.handleViewAction({
+      actionType: UploadConstants.CLEAR_UPLOADS,
+      uploaderId: uploaderId
+    });
+  },
   updateUpload: (uploaderId, id, data) => {
     AppDispatcher.handleViewAction({
       actionType: UploadConstants.UPDATE_UPLOAD,

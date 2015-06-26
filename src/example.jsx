@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Uploader, AssetPreview, UploaderPreview, UploadStore } from './index'
+import { Uploader, AssetPreview, UploaderPreview, UploadStore, UploadActionCreators } from './index'
 
 var Application = React.createClass({
   getInitialState: function() {
@@ -18,6 +18,9 @@ var Application = React.createClass({
   _onUpload: function(asset) {
     console.log(asset);
   },
+  _clear: function() {
+    UploadActionCreators.clearUploads("test-uploader");
+  },
   render: function() {
     return (
       <div>
@@ -26,6 +29,7 @@ var Application = React.createClass({
           <div className="button button--muted">Upload a file</div>
         </Uploader>
         <UploaderPreview uploads={this.state.uploads} previewComponent={AssetPreview} />
+        <button onClick={this._clear}>Clear Uploads!</button>
       </div>
     )
   }

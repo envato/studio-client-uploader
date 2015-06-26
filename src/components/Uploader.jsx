@@ -84,7 +84,7 @@ var Uploader = React.createClass({
     });
   },
   componentWillUnmount: function() {
-    UploadStore.clear(this.props.id);
+    UploadActionCreators.clearUploads(self.props.id);
     UploadStore.removeListener('change', this._onChange);
     this.dropzone.destroy();
     this.dropzone = null;
