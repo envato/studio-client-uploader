@@ -14,17 +14,40 @@ module.exports = {
       uploaderId: uploaderId
     });
   },
-  clearUploads: function (uploaderId) {
+  addThumbnail: function (uploaderId, id, thumbnail) {
     AppDispatcher.handleViewAction({
-      actionType: UploadConstants.CLEAR_UPLOADS,
+      actionType: UploadConstants.ADD_THUMBNAIL,
+      thumbnail: thumbnail,
+      id: id,
       uploaderId: uploaderId
     });
   },
-  updateUpload: function (uploaderId, id, data) {
+  progressUpdated: function (uploaderId, id, progress) {
     AppDispatcher.handleViewAction({
-      actionType: UploadConstants.UPDATE_UPLOAD,
-      data: data,
+      actionType: UploadConstants.PROGRESS_UPDATED,
+      progress: progress,
       id: id,
+      uploaderId: uploaderId
+    });
+  },
+  uploadError: function (uploaderId, id, error) {
+    AppDispatcher.handleViewAction({
+      actionType: UploadConstants.UPLOAD_ERROR,
+      error: error,
+      id: id,
+      uploaderId: uploaderId
+    });
+  },
+  uploadDone: function (uploaderId, id) {
+    AppDispatcher.handleViewAction({
+      actionType: UploadConstants.UPLOAD_DONE,
+      id: id,
+      uploaderId: uploaderId
+    });
+  },
+  clearUploads: function (uploaderId) {
+    AppDispatcher.handleViewAction({
+      actionType: UploadConstants.CLEAR_UPLOADS,
       uploaderId: uploaderId
     });
   }

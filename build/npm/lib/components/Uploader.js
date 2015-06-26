@@ -27,7 +27,7 @@ var Uploader = React.createClass({
       if (file.width >= this.props.minWidth) {
         return true;
       } else {
-        UploadActionCreators.updateUpload(this.props.id, file.id, { error: "Invalid Dimensions. Minimum width is " + this.props.minWidth });
+        UploadActionCreators.uploadError(this.props.id, file.id, "Invalid Dimensions. Minimum width is " + this.props.minWidth + "px");
         return false;
       }
     } else {
@@ -83,15 +83,15 @@ var Uploader = React.createClass({
         file.rejectDimensions();
       }
 
-      UploadActionCreators.updateUpload(self.props.id, file.id, { thumbnail: dataUrl });
+      UploadActionCreators.addThumbnail(self.props.id, file.id, dataUrl);
     });
 
     this.dropzone.on("uploadprogress", function (file, progress) {
-      UploadActionCreators.updateUpload(self.props.id, file.id, { progress: Math.min(progress, 99) });
+      UploadActionCreators.progressUpdated(self.props.id, file.id, Math.min(progress, 99));
     });
 
     this.dropzone.on("success", function (file) {
-      UploadActionCreators.updateUpload(self.props.id, file.id, { progress: 100 });
+      UploadActionCreators.uploadDone(self.props.id, file.id);
       self.props.onUpload(file.assetId);
     });
   },

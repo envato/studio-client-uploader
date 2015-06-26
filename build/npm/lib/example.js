@@ -16,7 +16,7 @@ var Application = React.createClass({
   displayName: "Application",
 
   getInitialState: function getInitialState() {
-    return { uploads: UploadStore.getByUploaderId("test-uploader") };
+    return { uploads: UploadStore.getByUploaderId("test-uploader"), uploadsDone: UploadStore.uploadsDone("test-uploader") };
   },
   componentDidMount: function componentDidMount() {
     UploadStore.addListener("change", this._onChange);
@@ -34,6 +34,17 @@ var Application = React.createClass({
     UploadActionCreators.clearUploads("test-uploader");
   },
   render: function render() {
+    var self = this;
+    console.log(Object.keys(this.state.uploads).map(function (upload) {
+      return self.state.uploads[upload].status;
+    }));
+
+    if (this.state.uploadsDone == true) {
+      var done = "ALL DONE";
+    } else {
+      var done = "NOPE";
+    }
+
     return React.createElement(
       "div",
       null,
@@ -52,7 +63,9 @@ var Application = React.createClass({
         "button",
         { onClick: this._clear },
         "Clear Uploads!"
-      )
+      ),
+      "All files uploaded? ",
+      done
     );
   }
 });
