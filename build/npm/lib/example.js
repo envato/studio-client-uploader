@@ -9,10 +9,23 @@ var _index = require("./index");
 var Uploader = _index.Uploader;
 var AssetPreview = _index.AssetPreview;
 var UploaderPreview = _index.UploaderPreview;
+var UploadStore = _index.UploadStore;
 
 var Application = React.createClass({
   displayName: "Application",
 
+  getInitialState: function getInitialState() {
+    return { uploads: UploadStore.getByUploaderId("test-uploader") };
+  },
+  componentDidMount: function componentDidMount() {
+    UploadStore.addListener("change", this._onChange);
+  },
+  componentWillUnmount: function componentWillUnmount() {
+    UploadStore.removeListener("change", this._onChange);
+  },
+  _onChange: function _onChange() {
+    this.setState(this.getInitialState());
+  },
   _onUpload: function _onUpload(asset) {
     console.log(asset);
   },
@@ -23,14 +36,14 @@ var Application = React.createClass({
       "Uploader:",
       React.createElement(
         Uploader,
-        { id: "test-uploader", assetType: "message-asset", assetServiceUrl: "http://studio-asset-api.lancerdev.com", uploadUrl: "https://api2.transloadit.com/assemblies", onUpload: this._onUpload },
+        { id: "test-uploader", minWidth: 1000, assetType: "message-asset", assetServiceUrl: "http://studio-asset-api.lancerdev.com", uploadUrl: "https://api2.transloadit.com/assemblies", onUpload: this._onUpload },
         React.createElement(
           "div",
           { className: "button button--muted" },
           "Upload a file"
         )
       ),
-      React.createElement(UploaderPreview, { uploaderId: "test-uploader", previewComponent: AssetPreview })
+      React.createElement(UploaderPreview, { uploads: this.state.uploads, previewComponent: AssetPreview })
     );
   }
 });

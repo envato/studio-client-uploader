@@ -8,4 +8,6 @@ var UploaderPreview = _interopRequire(require("./components/UploaderPreview"));
 
 var AssetPreview = _interopRequire(require("./components/AssetPreview"));
 
-module.exports = { Uploader: Uploader, UploaderPreview: UploaderPreview, AssetPreview: AssetPreview };
+var UploadStore = _interopRequire(require("./stores/UploadStore"));
+
+module.exports = { Uploader: Uploader, UploaderPreview: UploaderPreview, AssetPreview: AssetPreview, UploadStore: UploadStore };
