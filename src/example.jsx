@@ -1,8 +1,20 @@
 import React from 'react'
 
-import { Uploader, AssetPreview, UploaderPreview } from './index'
+import { Uploader, AssetPreview, UploaderPreview, UploadStore } from './index'
 
 var Application = React.createClass({
+  getInitialState: function() {
+    return { uploads: UploadStore.getByUploaderId("test-uploader") };
+  },
+  componentDidMount: function() {
+    UploadStore.addListener('change', this._onChange);
+  },
+  componentWillUnmount: function() {
+    UploadStore.removeListener('change', this._onChange);
+  },
+  _onChange: function() {
+    this.setState(this.getInitialState());
+  },
   _onUpload: function(asset) {
     console.log(asset);
   },
@@ -10,10 +22,10 @@ var Application = React.createClass({
     return (
       <div>
         Uploader:
-        <Uploader id="test-uploader" assetType="message-asset" assetServiceUrl="http://studio-asset-api.lancerdev.com" uploadUrl="https://api2.transloadit.com/assemblies" onUpload={this._onUpload}>
+        <Uploader id="test-uploader" minWidth={1000} assetType="message-asset" assetServiceUrl="http://studio-asset-api.lancerdev.com" uploadUrl="https://api2.transloadit.com/assemblies" onUpload={this._onUpload}>
           <div className="button button--muted">Upload a file</div>
         </Uploader>
-        <UploaderPreview uploaderId="test-uploader" previewComponent={AssetPreview} />
+        <UploaderPreview uploads={this.state.uploads} previewComponent={AssetPreview} />
       </div>
     )
   }
