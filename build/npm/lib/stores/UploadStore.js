@@ -12,6 +12,10 @@ var EventEmitter = _interopRequire(require("eventemitter3"));
 
 var _uploads = {};
 
+function clearUploads(uploaderId) {
+  _uploads[uploaderId] = {};
+}
+
 var UploadStore = assign({}, EventEmitter.prototype, {
   CHANGE_EVENT: "change",
   addUpload: function addUpload(uploaderId, file) {
@@ -40,9 +44,6 @@ var UploadStore = assign({}, EventEmitter.prototype, {
 
     return output;
   },
-  clear: function clear(uploaderId) {
-    _uploads[uploaderId] = {};
-  },
   emitChange: function emitChange() {
     this.emit(this.CHANGE_EVENT);
   }
@@ -58,6 +59,10 @@ AppDispatcher.register(function (payload) {
       break;
     case UploadConstants.UPDATE_UPLOAD:
       UploadStore.updateUpload(action.uploaderId, action.id, action.data);
+      UploadStore.emitChange();
+      break;
+    case UploadConstants.CLEAR_UPLOADS:
+      clearUploads(action.uploaderId);
       UploadStore.emitChange();
       break;
 

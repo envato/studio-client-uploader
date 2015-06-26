@@ -10,6 +10,7 @@ var Uploader = _index.Uploader;
 var AssetPreview = _index.AssetPreview;
 var UploaderPreview = _index.UploaderPreview;
 var UploadStore = _index.UploadStore;
+var UploadActionCreators = _index.UploadActionCreators;
 
 var Application = React.createClass({
   displayName: "Application",
@@ -29,6 +30,9 @@ var Application = React.createClass({
   _onUpload: function _onUpload(asset) {
     console.log(asset);
   },
+  _clear: function _clear() {
+    UploadActionCreators.clearUploads("test-uploader");
+  },
   render: function render() {
     return React.createElement(
       "div",
@@ -43,7 +47,12 @@ var Application = React.createClass({
           "Upload a file"
         )
       ),
-      React.createElement(UploaderPreview, { uploads: this.state.uploads, previewComponent: AssetPreview })
+      React.createElement(UploaderPreview, { uploads: this.state.uploads, previewComponent: AssetPreview }),
+      React.createElement(
+        "button",
+        { onClick: this._clear },
+        "Clear Uploads!"
+      )
     );
   }
 });

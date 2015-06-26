@@ -14,6 +14,12 @@ module.exports = {
       uploaderId: uploaderId
     });
   },
+  clearUploads: function (uploaderId) {
+    AppDispatcher.handleViewAction({
+      actionType: UploadConstants.CLEAR_UPLOADS,
+      uploaderId: uploaderId
+    });
+  },
   updateUpload: function (uploaderId, id, data) {
     AppDispatcher.handleViewAction({
       actionType: UploadConstants.UPDATE_UPLOAD,
