@@ -21,6 +21,8 @@ else
   fi
 fi
 
+echo $SNAP_BRANCH
+
 next_ref="v$next_version"
 
 update_version 'package.json' $next_version
