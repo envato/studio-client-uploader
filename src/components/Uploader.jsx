@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import Dropzone from '../vendor/dropzone';
 import StudioAssetService from 'studio-asset-service-client-js';
 import UploadActionCreators from '../actions/UploadViewActionCreators';
@@ -6,54 +7,21 @@ import UploadStore from '../stores/UploadStore';
 import AssetPreview from '../components/AssetPreview';
 import uuid from 'node-uuid';
 
-var Uploader = React.createClass({
-  getInitialState: function() {
-    return { validUploads: UploadStore.getValidUploads(this.props.id) };
-  },
-  _valid: function(file) {
-    if (this.props.minWidth != null) {
-      if (file.width >= this.props.minWidth) {
-        return true;
-      } else {
-        UploadActionCreators.uploadError(this.props.id, file.id, "Invalid Dimensions. Minimum width is " + this.props.minWidth + "px");
-        return false;
-      }
-    } else {
-      return true;
-    }
-  },
-  _accept: function(file, done) {
-    file.id = uuid.v4();
-    UploadActionCreators.addUpload(this.props.id, file);
+class Uploader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = this._getInitialState(props);
+  }
 
-    var self = this;
-
-    file.acceptDimensions = function() {
-      self.assetServiceClient.newAsset(self.props.assetType, function(err, data) {
-        file.signature = data.transloadit.signature;
-        file.params    = data.transloadit.params;
-        file.assetId   = data.asset.id;
-        done();
-      });
-    };
-
-    file.rejectDimensions = function() {
-      done("Invalid dimension.");
-    };
-
-    if (!file.type.match(/image.*/)) {
-      file.acceptDimensions();
-    }
-  },
-  componentDidMount: function() {
+  componentDidMount() {
     this.assetServiceClient = new StudioAssetService(this.props.assetServiceUrl);
-    UploadStore.addListener('change', this._onChange);
+    UploadStore.addListener('change', this._onChange.bind(this));
 
     var self = this;
 
-    this.dropzone = new Dropzone(this.refs.uploader.getDOMNode(), {
+    this.dropzone = new Dropzone(ReactDOM.findDOMNode(this.refs.uploader), {
       url: this.props.uploadUrl,
-      accept: this._accept,
+      accept: this._accept.bind(this),
       previewsContainer: false,
       maxFiles: this.props.maxFiles,
       acceptedFiles: this.props.acceptedFiles
@@ -82,25 +50,74 @@ var Uploader = React.createClass({
       UploadActionCreators.uploadDone(self.props.id, file.id);
       self.props.onUpload(file.assetId);
     });
-  },
-  componentWillUnmount: function() {
+  }
+
+  componentWillUnmount() {
     UploadActionCreators.clearUploads(this.props.id);
     UploadStore.removeListener('change', this._onChange);
     this.dropzone.destroy();
     this.dropzone = null;
-  },
-  _onChange: function() {
-    this.setState(this.getInitialState());
-  },
-  _disabled: function() {
+  }
+
+  _getInitialState(props) {
+    return {
+      validUploads: UploadStore.getValidUploads(props.id)
+    };
+  }
+
+  _onChange() {
+    this.setState(this._getInitialState(this.props));
+  }
+
+  _valid(file) {
+    if (this.props.minWidth != null) {
+      if (file.width >= this.props.minWidth) {
+        return true;
+      } else {
+        UploadActionCreators.uploadError(this.props.id, file.id, "Invalid Dimensions. Minimum width is " + this.props.minWidth + "px");
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
+  _accept(file, done) {
+    file.id = uuid.v4();
+    UploadActionCreators.addUpload(this.props.id, file);
+
+    var self = this;
+
+    file.acceptDimensions = function() {
+      self.assetServiceClient.newAsset(self.props.assetType, function(err, data) {
+        file.signature = data.transloadit.signature;
+        file.params    = data.transloadit.params;
+        file.assetId   = data.asset.id;
+        done();
+      });
+    };
+
+    file.rejectDimensions = function() {
+      done("Invalid dimension.");
+    };
+
+    if (!file.type.match(/image.*/)) {
+      file.acceptDimensions();
+    }
+  }
+
+  _disabled() {
     return Object.keys(this.state.validUploads).length >= this.props.maxFiles;
-  },
-  _onClick: function(e) {
-    React.findDOMNode(this.refs.uploader).click();
-  },
-  render: function() {
+  }
+
+  _onClick(e) {
+    this.refs.uploader.click();
+  }
+
+  render() {
+    let button = null;
     if (!this._disabled()) {
-     var button = <div ref="uploader" className="dz-clickable" onClick={this._onClick}>{this.props.children}</div>;
+      button = <div ref="uploader" className="dz-clickable" onClick={this._onClick.bind(this)}>{this.props.children}</div>;
     }
 
     return (
@@ -109,6 +126,6 @@ var Uploader = React.createClass({
       </div>
     );
   }
-});
+};
 
 export default Uploader;

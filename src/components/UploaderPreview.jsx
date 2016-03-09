@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-var UploaderPreview = React.createClass({
-  render: function() {
+class UploaderPreview extends Component {
+  render() {
     var assetPreviews = [];
     var uploadIds = Object.keys(this.props.uploads);
     for (var i = 0; i < uploadIds.length; i++) {
-     assetPreviews.push(<this.props.previewComponent asset={this.props.uploads[uploadIds[i]]} key={uploadIds[i]} />);
+      assetPreviews.push(<this.props.previewComponent asset={this.props.uploads[uploadIds[i]]} key={uploadIds[i]} />);
     }
 
     return (
@@ -14,6 +14,6 @@ var UploaderPreview = React.createClass({
       </div>
     );
   }
-});
+};
 
 export default UploaderPreview;

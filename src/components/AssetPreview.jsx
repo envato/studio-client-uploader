@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-var AssetPreview = React.createClass({
-  _progress: function() {
+class AssetPreview extends Component {
+  _progress() {
     if (this.props.asset.progress < 100) {
       return Math.floor(this.props.asset.progress) + "%";
     }
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <div className="asset-uploader__previews__item">
         <span className="asset-uploader__previews__item__icon"></span>
@@ -21,6 +21,6 @@ var AssetPreview = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default AssetPreview;
