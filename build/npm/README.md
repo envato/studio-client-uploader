@@ -1,9 +1,9 @@
-# react-studio-uploader
+# studio-client-uploader
 
 ## Usage:
 
 ```bash
-npm install --save react-studio-uploader
+npm install --save studio-client-uploader
 ```
 
 Then:
@@ -11,7 +11,7 @@ Then:
 ```javascript
 import React from 'react'
 
-import { Uploader, AssetPreview, UploaderPreview } from 'react-studio-uploader'
+import { Uploader, AssetPreview, UploaderPreview } from 'studio-client-uploader'
 
 var Application = React.createClass({
   _onUpload: function(asset) {

@@ -1,10 +1,10 @@
 {
   "name": "studio-client-uploader",
-  "version": "1.1.12",
+  "version": "1.1.13",
   "main": "lib",
   "repository": {
     "type": "git",
-    "url": "git://github.com/envato/react-studio-uploader.git"
+    "url": "git://github.com/envato/studio-client-uploader.git"
   },
   "author": "Shervin Aflatooni",
   "peerDependencies": {
