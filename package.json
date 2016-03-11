@@ -1,11 +1,11 @@
 {
-  "name": "react-studio-uploader",
+  "name": "studio-client-uploader",
   "version": "1.1.11",
   "main": "src",
   "scripts": {
-    "webpack": "./node_modules/.bin/webpack --progress --colors --watch",
     "start": "npm run webpack",
-    "build-npm": "./scripts/build.sh"
+    "build-npm": "./scripts/build.sh",
+    "watch": "webpack --progress -cw"
   },
   "repository": {
     "type": "git",
