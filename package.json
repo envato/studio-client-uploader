@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/envato/react-studio-uploader.git"
+    "url": "git://github.com/envato/studio-client-uploader.git"
   },
   "author": "Shervin Aflatooni",
   "devDependencies": {
