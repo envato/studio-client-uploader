@@ -92,6 +92,7 @@ AppDispatcher.register(function (payload) {
       break;
     case UploadConstants.CLEAR_UPLOADS:
       clearUploads(action.uploaderId);
+      UploadStore.emitChange();
       break;
 
     default:

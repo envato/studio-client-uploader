@@ -1,6 +1,6 @@
 {
   "name": "studio-client-uploader",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "main": "src",
   "scripts": {
     "build": "webpack --progress -c",
