@@ -21,6 +21,7 @@ class Uploader extends Component {
 
     this.dropzone = new Dropzone(ReactDOM.findDOMNode(this.refs.uploader), {
       url: this.props.uploadUrl,
+      maxFilesize: 512,
       accept: this._accept.bind(this),
       previewsContainer: false,
       maxFiles: this.props.maxFiles,
